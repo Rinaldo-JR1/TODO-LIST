@@ -9,19 +9,13 @@ const ListaTarefasItem = (props) => {
   const { nome, id } = props;
   // eslint-disable-next-line no-unused-vars
   const [editando, setEditando] = useState(false);
-
+  const blur = (e) => {
+    editarTarefa(id, e.currentTarget.value);
+    setEditando(false);
+  };
   return (
     <li className={style.ListaTarefasItem}>
-      {editando && (
-        <CampoTexto
-          defaultValue={nome}
-          onChange={(e) => editarTarefa(id, e.currentTarget.value)}
-          onBlur={() => {
-            setEditando(false);
-          }}
-          autoFocus
-        />
-      )}
+      {editando && <CampoTexto defaultValue={nome} onBlur={blur} autoFocus />}
       {!editando && (
         <span
           onDoubleClick={() => {

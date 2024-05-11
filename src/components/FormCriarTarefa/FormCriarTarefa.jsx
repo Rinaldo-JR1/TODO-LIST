@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
-import { CampoTexto, Botao } from "../../components";
+import { CampoTexto, Botao, Loading } from "../../components";
 import style from "./FormCriarTarefa.module.css";
 import { UserAppContext } from "../../hooks";
 
 const FormCriarTarefa = () => {
   const [nomeTarefa, setNomeTarefa] = useState("");
-  const { criarTarefa } = UserAppContext();
+  const { criarTarefa, loadingCriar } = UserAppContext();
   const adicionarTarefa = (event) => {
     event.preventDefault();
     if (!nomeTarefa) {
@@ -23,7 +23,7 @@ const FormCriarTarefa = () => {
   return (
     <form className={style.FormCriarTarefa} onSubmit={adicionarTarefa}>
       <CampoTexto value={nomeTarefa} onChange={onChange} />
-      <Botao texto={"+"} />
+      <Botao texto={loadingCriar ? <Loading/> : '+' } />
     </form>
   );
 };
