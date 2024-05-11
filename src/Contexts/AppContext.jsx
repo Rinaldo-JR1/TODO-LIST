@@ -36,11 +36,11 @@ export const AppContextProvider = (props) => {
   };
   const removerTarefa = async (id) => {
     setLoadingDeletar(id);
-    const { data: tarefa } = await api.delete(`/tarefas/${id}`);
+    await api.delete(`/tarefas/${id}`);
     setTarefas((estadoAtual) => {
-      return estadoAtual.filter((t) => t.id !== tarefa.id);
+      return estadoAtual.filter((tarefa) => tarefa.id != id);
     });
-    setLoadingDeletar(id);
+    setLoadingDeletar(null);
   };
   const editarTarefa = async (id, novoNome) => {
     setLoadingEditar(id);
@@ -51,7 +51,7 @@ export const AppContextProvider = (props) => {
     setTarefas((estadoAtual) => {
       return estadoAtual.map((tarefa) => {
         if (tarefa.id === id) {
-          return { ...tarefa, nome: tarefaAtualizada.nomes };
+          return { ...tarefa, nome: tarefaAtualizada.nome };
         }
         return tarefa;
       });
