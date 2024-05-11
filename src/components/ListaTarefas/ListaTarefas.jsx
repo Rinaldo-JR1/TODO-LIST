@@ -1,20 +1,18 @@
-import PropTypes from "prop-types"; // Import PropTypes
-
 import style from "./ListaTarefas.module.css";
 import { ListaTarefasItem } from "./ListaTarefasItem";
-const ListaTarefas = ({ tarefas }) => {
+import { UserAppContext } from "../../hooks";
+const ListaTarefas = () => {
+  const { tarefas } = UserAppContext(); // Import the tarefas state from the AppContext
   return (
-    <ul className={style.ListaTarefas}>
-      {tarefas.map((tarefa) => (
-        <ListaTarefasItem key={tarefa.id} nome={tarefa.nome} />
-      ))}
-    </ul>
+    <div>
+      {tarefas.length == 0 && <p>Nenhuma tarefa cadastrada</p>}
+      <ul className={style.ListaTarefas}>
+        {tarefas.map((tarefa) => (
+          <ListaTarefasItem key={tarefa.id} id={tarefa.id} nome={tarefa.nome} />
+        ))}
+      </ul>
+    </div>
   );
-};
-
-// Add prop validation for 'tarefas'
-ListaTarefas.propTypes = {
-  tarefas: PropTypes.array.isRequired,
 };
 
 export { ListaTarefas };

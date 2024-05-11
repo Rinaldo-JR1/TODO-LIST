@@ -2,24 +2,17 @@
 import { useState } from "react";
 import { CampoTexto, Botao } from "../../components";
 import style from "./FormCriarTarefa.module.css";
-import PropTypes from "prop-types";
+import { UserAppContext } from "../../hooks";
 
-// eslint-disable-next-line react/prop-types
-const FormCriarTarefa = ({ setTarefas }) => {
+const FormCriarTarefa = () => {
   const [nomeTarefa, setNomeTarefa] = useState("");
-
+  const { criarTarefa } = UserAppContext();
   const adicionarTarefa = (event) => {
     event.preventDefault();
     if (!nomeTarefa) {
       return;
     }
-    setTarefas((estadoAtual) => {
-      const tarefa = {
-        id: estadoAtual.length + 1,
-        nome: nomeTarefa,
-      };
-      return [...estadoAtual, tarefa];
-    });
+    criarTarefa(nomeTarefa);
     setNomeTarefa("");
   };
 
